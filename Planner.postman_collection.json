@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "d494ac02-7694-4535-9f40-b2f07a9c27dc",
+		"name": "Planner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Login Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse HTML and get the CSRF Token",
+							"var csrfTokenName = pm.cookies.get(\"csrftoken\");",
+							"console.log(csrfTokenName);",
+							"pm.collectionVariables.set(\"csrfTokenName\", csrfTokenName);",
+							"",
+							"pm.test(\"Get Login test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/planner/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"planner",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse HTML and get the CSRF Token",
+							"var sessionid = pm.cookies.get(\"sessionid\");",
+							"console.log(sessionid);",
+							"pm.collectionVariables.set(\"sessionid\", sessionid);",
+							"",
+							"pm.test(\"Login test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1",
+						"disabled": true
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:8000"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:8000/planner/login/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrfTokenName}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "csrfmiddlewaretoken",
+							"value": "{{csrfTokenName}}",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "andrewpurchase",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "Submit",
+							"value": "Login",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/planner/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"planner",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "sessionid={{sessionid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/current_user",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"current_user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "csrfTokenName",
+			"value": ""
+		},
+		{
+			"key": "sessionid",
+			"value": ""
+		}
+	]
+}
